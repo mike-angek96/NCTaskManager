@@ -19,6 +19,7 @@ public class TaskTest {
 
         assertEquals(8, todo.getTime());
         assertFalse(todo.isRepeated());
+        assertEquals(8, todo.getStartTime());
     }
 
 
@@ -32,6 +33,7 @@ public class TaskTest {
         assertEquals(2, todo.getStartTime());
         assertEquals(9, todo.getEndTime());
         assertEquals(2, todo.getRepeatedInterval());
+        assertEquals(2, todo.getTime());
         assertTrue(todo.isRepeated());
     }
 
@@ -44,5 +46,11 @@ public class TaskTest {
         assertEquals(-1, todo.nextTimeAfter(8));
         assertEquals(-1, todo.nextTimeAfter(9));
         assertEquals(-1, todo.nextTimeAfter(11));
+    }
+
+    @Test
+    public void testNonRepetitiveTask_nextTimeAfter(){
+        Task todo = new Task("ir a la cena de clausura", 9);
+        assertEquals(9, todo.nextTimeAfter(7));
     }
 }

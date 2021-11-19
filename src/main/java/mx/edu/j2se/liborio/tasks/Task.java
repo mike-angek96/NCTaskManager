@@ -4,7 +4,7 @@ public class Task {
 
     private String title;
     private int time = 0, start = 0, end = 0, interval = 0;
-    private boolean isActive = false;
+    private boolean isActive = false, isRepetitive = false;
 
     /**
      * Constructs an inactive non-repetitive Task
@@ -12,6 +12,7 @@ public class Task {
     public Task(String title, int time) {
         this.title = title;
         this.time = time;
+        this.isRepetitive = false;
     }
 
     /**
@@ -22,6 +23,7 @@ public class Task {
         this.start = start;
         this.end = end;
         this.interval = interval;
+        this.isRepetitive = true;
     }
 
     public String getTitle() {
@@ -41,7 +43,7 @@ public class Task {
     }
 
     public int getTime() {
-        return this.start == 0
+        return this.isRepetitive == false
                 ? this.time
                 : this.start;
     }
@@ -54,18 +56,19 @@ public class Task {
         this.start = 0;
         this.end = 0;
         this.interval = 0;
+        this.isRepetitive = false;
     }
 
     public int getStartTime() {
-        return this.start;
+        return this.isRepetitive == true ? this.start : this.time;
     }
 
     public int getEndTime() {
-        return this.end;
+        return this.isRepetitive == true ? this.end : 0;
     }
 
     public int getRepeatedInterval() {
-        return this.interval > 0
+        return this.isRepetitive == true
                 ? this.interval
                 : 0;
     }
@@ -77,10 +80,11 @@ public class Task {
         this.start = start;
         this.end = end;
         this.interval = interval;
+        this.isRepetitive = true;
     }
 
     public boolean isRepeated() {
-        return this.interval > 0 ? true : false;
+        return this.isRepetitive == true ? true : false;
     }
 
     /**
@@ -89,6 +93,10 @@ public class Task {
      */
     public int nextTimeAfter(int current) {
         int nextTime = 0;
+
+        if (this.isRepetitive == false) {
+            return this.time;
+        }
 
         if (current >= this.start && current <= this.end) {
             for (int i = this.start; i <= this.end; i += this.interval) {
