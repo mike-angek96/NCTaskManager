@@ -16,6 +16,7 @@ public class Main {
         System.out.println(estudiar);
 
         Task correr = new Task("correr", 4, 11, 2);
+        correr.setActive(true);
         System.out.println(correr.nextTimeAfter(3));
         System.out.println(correr.nextTimeAfter(4));
         System.out.println(correr.nextTimeAfter(5));

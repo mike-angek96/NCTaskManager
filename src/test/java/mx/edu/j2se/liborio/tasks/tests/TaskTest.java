@@ -40,6 +40,7 @@ public class TaskTest {
     @Test
     public void testRepetitiveTask_nextTimeAfter() {
         Task todo = new Task("ir a correr en la tarde", 2, 9, 2);
+        todo.setActive(true);
         assertEquals(2, todo.nextTimeAfter(1));
         assertEquals(4, todo.nextTimeAfter(3));
         assertEquals(8, todo.nextTimeAfter(6));
@@ -49,8 +50,10 @@ public class TaskTest {
     }
 
     @Test
-    public void testNonRepetitiveTask_nextTimeAfter(){
+    public void testNonRepetitiveTask_nextTimeAfter() {
         Task todo = new Task("ir a la cena de clausura", 9);
+        todo.setActive(true);
         assertEquals(9, todo.nextTimeAfter(7));
+        assertEquals(-1, todo.nextTimeAfter(10));
     }
 }

@@ -43,7 +43,7 @@ public class Task {
     }
 
     public int getTime() {
-        return this.isRepetitive == false
+        return !this.isRepetitive
                 ? this.time
                 : this.start;
     }
@@ -60,15 +60,15 @@ public class Task {
     }
 
     public int getStartTime() {
-        return this.isRepetitive == true ? this.start : this.time;
+        return this.isRepetitive ? this.start : this.time;
     }
 
     public int getEndTime() {
-        return this.isRepetitive == true ? this.end : 0;
+        return this.isRepetitive ? this.end : 0;
     }
 
     public int getRepeatedInterval() {
-        return this.isRepetitive == true
+        return this.isRepetitive
                 ? this.interval
                 : 0;
     }
@@ -84,7 +84,7 @@ public class Task {
     }
 
     public boolean isRepeated() {
-        return this.isRepetitive == true ? true : false;
+        return this.isRepetitive;
     }
 
     /**
@@ -94,8 +94,12 @@ public class Task {
     public int nextTimeAfter(int current) {
         int nextTime = 0;
 
-        if (this.isRepetitive == false) {
-            return this.time;
+        if(!this.isActive){
+            System.out.println("The task is inactive");
+            return -1;
+        }
+        if (!this.isRepetitive) {
+            return current < this.time ? this.time : -1;
         }
 
         if (current >= this.start && current <= this.end) {
