@@ -17,7 +17,8 @@ public class Main {
 
         Task correr = new Task("correr", 4, 11, 2);
         correr.setActive(true);
-        System.out.println(correr.nextTimeAfter(3));
+
+        System.out.println(correr.nextTimeAfter(1));
         System.out.println(correr.nextTimeAfter(4));
         System.out.println(correr.nextTimeAfter(5));
         System.out.println(correr.nextTimeAfter(10));
@@ -27,12 +28,27 @@ public class Main {
 
         System.out.println("*****--------tasklist---------------------***");
         ArrayTaskList taskList = new ArrayTaskList(3);
-        taskList.add(irFiesta);
-        taskList.add(correr);
-        taskList.add(estudiar);
-        System.out.println(Arrays.toString(taskList.incoming(5,9)));
+        try {
+            taskList.add(irFiesta);
+            taskList.add(correr);
+            taskList.add(estudiar);
+            taskList.getTask(0);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("Thw index is out of limit");
+        }
+        System.out.println(Arrays.toString(taskList.incoming(5, 9)));
         System.out.println(taskList.remove(estudiar));
         taskList.printTask();
+
+        LinkedTaskList linkedTaskList = new LinkedTaskList();
+        linkedTaskList.add(estudiar);
+        linkedTaskList.add(irFiesta);
+        System.out.println(linkedTaskList.incoming(1, 9));
+        linkedTaskList.printTasks();
+        System.out.println(linkedTaskList.remove(1));
+        linkedTaskList.printTasks();
+        System.out.println(linkedTaskList.size());
+        System.out.println(linkedTaskList.getTask(0));
     }
 
 }

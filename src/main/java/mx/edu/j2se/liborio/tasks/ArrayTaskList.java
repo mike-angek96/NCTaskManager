@@ -6,7 +6,10 @@ public class ArrayTaskList {
     private Task[] taskList;
     private int counter=0;
 
-    public ArrayTaskList(int size){
+    public ArrayTaskList(int size) throws NegativeArraySizeException{
+        if(size <0){
+            throw new NegativeArraySizeException("The size cannot be negative");
+        }
         this.taskList= new Task[size];
     }
 
@@ -42,9 +45,14 @@ public class ArrayTaskList {
     /**
      * This method returns a subset of tasks that are scheduled for execution at least once after the "from" time, and not later than the "to" time
      */
-    public Task[] incoming(int from, int to){
+    public Task[] incoming(int from, int to) throws IllegalArgumentException{
         Task[] scheduledTasks = new Task[this.taskList.length];
         int cont=0;
+
+        if(from <= 0 || to <=0){
+            throw new IllegalArgumentException("Values cannot be less or equals than 0");
+        }
+
         for(int i=0; i < this.taskList.length; i++){
             if(this.taskList[i].isRepeated() == true && (this.taskList[i].getStartTime() >= from && this.taskList[i].getEndTime() <= to)){
                 scheduledTasks[cont]=this.taskList[i];

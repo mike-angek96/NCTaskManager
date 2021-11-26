@@ -9,7 +9,10 @@ public class Task {
     /**
      * Constructs an inactive non-repetitive Task
      */
-    public Task(String title, int time) {
+    public Task(String title, int time) throws IllegalArgumentException{
+        if(time <= 0){
+            throw new IllegalArgumentException("Value cannot be less or equal than 0");
+        }
         this.title = title;
         this.time = time;
         this.isRepetitive = false;
@@ -18,7 +21,10 @@ public class Task {
     /**
      * Constructs an inactive repetitive Task
      */
-    public Task(String title, int start, int end, int interval) {
+    public Task(String title, int start, int end, int interval) throws IllegalArgumentException{
+        if(start <= 0 || end <= 0 || interval  <= 0){
+            throw new IllegalArgumentException("Value cannot be less or equal than 0");
+        }
         this.title = title;
         this.start = start;
         this.end = end;
@@ -51,7 +57,10 @@ public class Task {
     /**
      * If the task was a repetitive one, it becomes non-repetitive
      */
-    public void setTime(int time) {
+    public void setTime(int time) throws IllegalArgumentException{
+        if(time <= 0){
+            throw new IllegalArgumentException("Value cannot be less or equal than 0");
+        }
         this.time = time;
         this.start = 0;
         this.end = 0;
@@ -76,7 +85,10 @@ public class Task {
     /**
      * If the task is a non-repetitive one, it becomes repetitive
      */
-    public void setTime(int start, int end, int interval) {
+    public void setTime(int start, int end, int interval) throws IllegalArgumentException{
+        if(start <= 0 || end <= 0 || interval  <= 0){
+            throw new IllegalArgumentException("Value cannot be less or equal than 0");
+        }
         this.start = start;
         this.end = end;
         this.interval = interval;
@@ -91,9 +103,12 @@ public class Task {
      * returns the next start time of the task execution after the current time given.
      * If after the specified time the task is not executed anymore, the method return -1
      */
-    public int nextTimeAfter(int current) {
+    public int nextTimeAfter(int current) throws IllegalArgumentException{
         int nextTime = 0;
 
+        if(current <= 0){
+            throw new IllegalArgumentException("Value cannot be less or equal than 0");
+        }
         if(!this.isActive){
             System.out.println("The task is inactive");
             return -1;
