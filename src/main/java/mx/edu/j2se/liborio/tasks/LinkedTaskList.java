@@ -1,6 +1,6 @@
 package mx.edu.j2se.liborio.tasks;
 
-public class LinkedTaskList {
+public class LinkedTaskList extends AbstractTaskList{
 
     private Node head;
     private int numNodes;
@@ -9,6 +9,7 @@ public class LinkedTaskList {
         head = null;
     }
 
+    @Override
     public void add(Task data) {
         if (head == null) {
             head = new Node(data);
@@ -41,6 +42,7 @@ public class LinkedTaskList {
         return true;
     }
 
+    @Override
     public void printTasks() {
         Node temp = head;
         while (temp != null) {
@@ -50,6 +52,7 @@ public class LinkedTaskList {
         System.out.print("\n");
     }
 
+    @Override
     public int size() {
         return numNodes;
     }
@@ -57,6 +60,7 @@ public class LinkedTaskList {
     /**
      * @throws IllegalArgumentException
      */
+    @Override
     public Task getTask(int index) throws IllegalArgumentException {
         if (index < 0) {
             throw new IllegalArgumentException("Index cannot be less than 0");

@@ -38,7 +38,7 @@ public class Main {
         }
         System.out.println(Arrays.toString(taskList.incoming(5, 9)));
         System.out.println(taskList.remove(estudiar));
-        taskList.printTask();
+        taskList.printTasks();
 
         LinkedTaskList linkedTaskList = new LinkedTaskList();
         linkedTaskList.add(estudiar);
@@ -49,6 +49,12 @@ public class Main {
         linkedTaskList.printTasks();
         System.out.println(linkedTaskList.size());
         System.out.println(linkedTaskList.getTask(0));
+
+        System.out.println("**----TaskListFactory---**");
+        AbstractTaskList arrayTaskList=TaskListFactory.createTaskList(ListTypes.types.ARRAY);
+        System.out.println(arrayTaskList);
+        AbstractTaskList linkedTaskList2=TaskListFactory.createTaskList(ListTypes.types.LINKED);
+        System.out.println(linkedTaskList2);
     }
 
 }

@@ -2,7 +2,7 @@ package mx.edu.j2se.liborio.tasks;
 
 import java.util.Arrays;
 
-public class ArrayTaskList {
+public class ArrayTaskList extends AbstractTaskList {
     private Task[] taskList;
     private int counter=0;
 
@@ -13,6 +13,7 @@ public class ArrayTaskList {
         this.taskList= new Task[size];
     }
 
+    @Override
     public void add(Task task){
         this.taskList[counter] = task;
         counter+=1;
@@ -23,21 +24,24 @@ public class ArrayTaskList {
         for(int i=0; i < this.taskList.length; i++){
             if(this.taskList[i].getTitle().equals(task.getTitle())){
                 this.taskList[i]=null;
-                printTask();
+                printTasks();
                 return true;
             }
         }
         return false;
     }
 
-    public void printTask(){
+    @Override
+    public void printTasks(){
         System.out.println(Arrays.toString(this.taskList));
     }
 
+    @Override
     public int size(){
         return this.counter;
     }
 
+    @Override
     public Task getTask(int index){
         return this.taskList[index];
     }
