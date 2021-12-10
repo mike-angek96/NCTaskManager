@@ -1,6 +1,9 @@
 package mx.edu.j2se.liborio.tasks;
 
-public class LinkedTaskList extends AbstractTaskList{
+import java.util.Iterator;
+import java.util.Objects;
+
+public class LinkedTaskList extends AbstractTaskList implements Cloneable{
 
     private Node head;
     private int numNodes;
@@ -97,6 +100,41 @@ public class LinkedTaskList extends AbstractTaskList{
         return subList;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        LinkedTaskList that = (LinkedTaskList) o;
+        return numNodes == that.numNodes && Objects.equals(head, that.head);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(head, numNodes);
+    }
+
+    @Override
+    public String toString() {
+        return "LinkedTaskList{" +
+                "head=" + head +
+                ", numNodes=" + numNodes +
+                '}';
+    }
+
+    @Override
+    public Iterator iterator() {
+        return new DataIterator();
+    }
+
+    @Override
+    public LinkedTaskList clone() {
+        try {
+            LinkedTaskList clone = (LinkedTaskList) super.clone();
+            return clone;
+        } catch (CloneNotSupportedException e) {
+            throw new AssertionError();
+        }
+    }
 
     private class Node {
         private Node next;
@@ -108,6 +146,21 @@ public class LinkedTaskList extends AbstractTaskList{
 
         public Task getData() {
             return this.data;
+        }
+    }
+
+    private class DataIterator implements Iterator {
+        Node current;
+        @Override
+        public boolean hasNext() {
+            return current != null;
+        }
+
+        @Override
+        public Object next() {
+            Object data = current.getData();
+            current = current.next;
+            return data;
         }
     }
 }

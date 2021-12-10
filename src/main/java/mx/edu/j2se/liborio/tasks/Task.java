@@ -1,6 +1,9 @@
 package mx.edu.j2se.liborio.tasks;
 
-public class Task {
+import java.util.Iterator;
+import java.util.Objects;
+
+public class Task implements Cloneable{
 
     private String title;
     private int time = 0, start = 0, end = 0, interval = 0;
@@ -130,12 +133,39 @@ public class Task {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Task task = (Task) o;
+        return time == task.time && start == task.start && end == task.end && interval == task.interval && isActive == task.isActive && isRepetitive == task.isRepetitive && Objects.equals(title, task.title);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(title, time, start, end, interval, isActive, isRepetitive);
+    }
+
+    @Override
     public String toString() {
         return "Task{" +
                 "title='" + title + '\'' +
+                ", time=" + time +
                 ", start=" + start +
                 ", end=" + end +
+                ", interval=" + interval +
                 ", isActive=" + isActive +
+                ", isRepetitive=" + isRepetitive +
                 '}';
+    }
+
+
+    @Override
+    public Task clone() {
+        try {
+            Task clone = (Task) super.clone();
+            return clone;
+        } catch (CloneNotSupportedException e) {
+            throw new AssertionError();
+        }
     }
 }

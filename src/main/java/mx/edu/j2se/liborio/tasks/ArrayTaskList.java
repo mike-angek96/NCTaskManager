@@ -1,8 +1,10 @@
 package mx.edu.j2se.liborio.tasks;
 
 import java.util.Arrays;
+import java.util.Iterator;
+import java.util.Objects;
 
-public class ArrayTaskList extends AbstractTaskList {
+public class ArrayTaskList extends AbstractTaskList implements Cloneable{
     private Task[] taskList;
     private int counter=0;
 
@@ -68,5 +70,64 @@ public class ArrayTaskList extends AbstractTaskList {
             }
         }
         return scheduledTasks;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ArrayTaskList that = (ArrayTaskList) o;
+        return counter == that.counter && Arrays.equals(taskList, that.taskList);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = Objects.hash(counter);
+        result = 31 * result + Arrays.hashCode(taskList);
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        return "ArrayTaskList{" +
+                "taskList=" + Arrays.toString(taskList) +
+                ", counter=" + counter +
+                '}';
+    }
+
+    @Override
+    public ArrayTaskList clone() {
+        try {
+            ArrayTaskList clone = (ArrayTaskList) super.clone();
+            return clone;
+        } catch (CloneNotSupportedException e) {
+            throw new AssertionError();
+        }
+    }
+
+    @Override
+    public Iterator iterator() {
+        return new DataIterator();
+    }
+
+    private class DataIterator implements Iterator {
+        private int position=0;
+        @Override
+        public boolean hasNext() {
+            if (position < taskList.length){
+                return true;
+            }else{
+                return false;
+            }
+        }
+
+        @Override
+        public Object next() {
+            if (this.hasNext()){
+                return taskList[position++];
+            }else{
+                return null;
+            }
+        }
     }
 }

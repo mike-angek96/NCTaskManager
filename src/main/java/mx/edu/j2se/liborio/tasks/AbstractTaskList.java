@@ -1,6 +1,6 @@
 package mx.edu.j2se.liborio.tasks;
 
-abstract class AbstractTaskList {
+abstract class AbstractTaskList implements Iterable {
 
     abstract void add(Task data);
     abstract void printTasks();
